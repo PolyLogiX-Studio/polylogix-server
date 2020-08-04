@@ -29,6 +29,7 @@ app.use('/api', require("./server/API"))
 app.get("/:assetType/:assetFile", (req, res, next) => {
   switch (req.params.assetType) {
     case "css":
+    case "img":
     case "js":
       return res.sendFile(path.join(__dirname, `/dist/${req.params.assetType}/${req.params.assetFile}`), {
         dotfiles: "ignore"

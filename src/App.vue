@@ -6,7 +6,7 @@
       color="#fcb69f"
       dark
       shrink-on-scroll
-      src="https://www.theawl.com/wp-content/uploads/2017/09/sheet-music-277277_1280.jpg"
+      src="@/assets/images/cover.jpg"
       scroll-target="#scrolling-techniques-2"
     >
       <template v-slot:img="{ props }">
@@ -16,8 +16,8 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title to="Home">
-        Bomb & Kou
-        <span :v-if="!$vuetify.breakpoint.mobile">Sheet Music</span>
+        PolyLogiX
+        <span :v-if="!$vuetify.breakpoint.mobile">Studio</span>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
