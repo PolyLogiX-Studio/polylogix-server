@@ -6,38 +6,52 @@
 const express = require("express");
 const app = express();
 const path = require("path")
-//const cors = require("cors")
-//app.use(cors())
+/*
+///  Cors Disabled  ///
+const cors = require("cors")
+app.use(cors())
+*/
 function checkHttps(req, res, next) {
   // protocol check, if http, redirect to https
-
   if (req.get("X-Forwarded-Proto").indexOf("https") != -1) {
-    console.log("https, yo");
     return next();
   } else {
-    console.log("just http");
     res.redirect("https://" + req.hostname + req.url);
   }
 }
 app.set("trust proxy");
-app.all("*",(req,res,next)=>{
+// Log incoming requests
+app.all("*", (req, res, next) => {
   console.log(`${req.ip}-${req.method}: ${req.url}`)
   next()
 })
 
+/* /// Routing /// */
+
+// Api - ./server/api/index.html
 app.use('/api', require("./server/API"))
+
+/* Static Assets
+  serves: css, img, js
+*/
 app.get("/:assetType/:assetFile", (req, res, next) => {
   switch (req.params.assetType) {
+    //serve css, img, and js files
     case "css":
     case "img":
     case "js":
+      // Send file from dist, and handle 404 if File does not exist. 
+      // If not Asset continue to other routes.
       return res.sendFile(path.join(__dirname, `/dist/${req.params.assetType}/${req.params.assetFile}`), {
         dotfiles: "ignore"
-      }, (err) => err ? res.sendStatus(404) : console.log(`SENT /dist/${req.params.assetType}/${req.params.assetFile}`));
+      }, /* File not found, Serve 404 */ (err) => err ? res.sendStatus(404) : console.log(`SENT /dist/${req.params.assetType}/${req.params.assetFile}`));
     default:
+      // Not a static asset, Continue to other Routes
       return next();
   }
 })
+
+// Route everything else to Vue app
 app.get("*", (req, res, next) => {
   console.log("SENT /dist/index.html")
   res.sendFile(path.join(__dirname, "dist/index.html"))
