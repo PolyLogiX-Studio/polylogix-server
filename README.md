@@ -1,4 +1,4 @@
-# bombandkou-frontend
+# PolyLogiX Server
 
 ## Project setup
 Work in Progress
