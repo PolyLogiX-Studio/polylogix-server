@@ -50,7 +50,11 @@ app.get("/:assetType/:assetFile", (req, res, next) => {
       return next();
   }
 })
-
+//Hard Code for Favicon file.
+app.get("/favicon.ico", (req, res, next) => {
+  console.log("SENT /dist/favicon.ico")
+  res.sendFile(path.join(__dirname, "dist/favicon.ico"))
+})
 // Route everything else to Vue app
 app.get("*", (req, res, next) => {
   console.log("SENT /dist/index.html")
