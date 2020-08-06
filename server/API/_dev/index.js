@@ -28,7 +28,7 @@ db.serialize(() => {
       if (row) {
         console.log(`record: ${row.dream}`);
       }
-    });
+    }); 
   }
 });
 
