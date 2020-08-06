@@ -1,6 +1,9 @@
 .DS_Store
 node_modules
-
+# Data files/directories
+.data
+.tests
+/server/API/_dev
 # local env files
 .env.local
 .env.*.local
